@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "quantum.h"
 
 
 #define _QWERTY 0
@@ -11,6 +12,14 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+};
+
+enum tap_dances {
+    TD_TAB_ESC = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_TAB_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_ESC)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
