@@ -1,3 +1,5 @@
+iris-keymap.c
+kyria-keymap.c
 .history/
 .dep
 *.o
