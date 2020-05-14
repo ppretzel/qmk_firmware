@@ -18,11 +18,12 @@
 #include "quantum.h"
 #include "keymap_german.h"
 
+
 enum layers {
     _QWERTY = 0,
     _LOWER,
     _RAISE,
-    _MVMNT
+    _MVMNT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -34,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                           KC_H,    KC_J,    KC_K,    KC_L,    DE_ODIA, DE_ADIA,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐  ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV,  KC_NO,      KC_NO,   KC_NO,   KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
+       KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV,  KC_NO,      KC_NO, KC_NO,   KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┴────────┴────────┼────────┼────────┼────────┴────────┴────────┘
                                   KC_NO,   KC_LALT, LT(_LOWER,KC_TAB), MT(MOD_LGUI, KC_ESC), KC_NO, KC_NO, LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER, KC_NO
     //                           └────────┴────────┴────────┴────────┴────────┘  └────────┴────────┴────────┴────────┴────────┘
@@ -77,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                      ┌────────┬────────┬────────┬────────┬────────┬────────┐
        _______, _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______, KC_PSCREEN,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
-       _______, _______, _______, _______, _______, _______,                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENTER, KC_PGUP,
+       RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______, _______,                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENTER, KC_PGUP,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐  ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, KC_DEL,  KC_INS,  KC_TAB,  KC_HOME, KC_END,  KC_PGDOWN,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┴────────┴────────┼────────┼────────┼────────┴────────┴────────┘
@@ -86,10 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _MVMNT);
-}
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
