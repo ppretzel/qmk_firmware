@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    DE_ODIA, DE_ADIA,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV,           KC_DEL,  KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
+     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG,           KC_DEL,  KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LALT, LT(_LOWER,KC_TAB), MT(MOD_LGUI, KC_ESC), LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
