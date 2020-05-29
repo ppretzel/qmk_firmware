@@ -15,9 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
+#include <keymap.h>
 #include "quantum.h"
 #include "keymap_german.h"
-
 
 enum layers {
     _QWERTY = 0,
@@ -25,6 +25,21 @@ enum layers {
     _RAISE,
     _MVMNT,
     _CTRL,
+};
+
+enum right_encoder_states {
+    ARROW,
+    PAGE,
+    VOLUME
+};
+
+enum left_encoder_states {
+    SELECT
+};
+
+enum custom_keycodes {
+    CYCLE_RIGHT_ENCODER = 0,
+    CYCLE_LEFT_ENCODER
 };
 
 enum tap_dances {
@@ -46,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐  ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    TD(TD_RGB),KC_NO,      MO(_CTRL), KC_NO,   KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┴────────┴────────┼────────┼────────┼────────┴────────┴────────┘
-                                  KC_NO,   KC_LALT, LT(_LOWER,KC_TAB), KC_LGUI, KC_ESC, KC_NO, LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER, KC_NO
+                                  KC_NO,   KC_LALT, LT(_LOWER,KC_TAB), KC_LGUI, KC_ESC, KC_NO, LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER, CYCLE_RIGHT_ENCODER
     //                           └────────┴────────┴────────┴────────┴────────┘  └────────┴────────┴────────┴────────┴────────┘
     ),                                  
 
@@ -109,8 +124,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+        case CYCLE_RIGHT_ENCODER:
+            cycle_right_encoder();
+            return false;
+    }
+
+    return true;
+}
+
+// ----------------------------- ENCODER STUFF --------------------------------------
 #ifdef ENCODER_ENABLE
+
+int right_encoder_state = ARROW;
+
 void encoder_update_user(uint8_t index, bool clockwise) {
+    // Left encoder
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -119,13 +151,45 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    
+    // Right encoder
     else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_DOWN);
-        } else {
-            tap_code(KC_UP);
+        switch (right_encoder_state) {
+            case ARROW: 
+                // Arrow up/Arrow down
+                if (clockwise) {
+                    tap_code(KC_DOWN);
+                } else {
+                    tap_code(KC_UP);
+                }
+                break;
+            case PAGE: 
+                // Page up/Page down
+                if (clockwise) {
+                    tap_code(KC_PGDOWN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+                break;
+            case VOLUME:
+                // Set Volume
+                if (clockwise) {
+                    tap_code(KC_AUDIO_VOL_UP);
+                } else {
+                    tap_code(KC_AUDIO_VOL_DOWN);
+                }
+                break;
+
         }
+    }
+}
+
+void cycle_right_encoder(void) {
+
+    switch (right_encoder_state) {
+        case ARROW: right_encoder_state = PAGE; break;
+        case PAGE: right_encoder_state = VOLUME; break;
+        case VOLUME: right_encoder_state = ARROW; break;
     }
 }
 #endif
