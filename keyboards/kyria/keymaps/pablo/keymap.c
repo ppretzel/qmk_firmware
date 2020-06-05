@@ -15,9 +15,11 @@
  */
 
 #include QMK_KEYBOARD_H
-#include <keymap.h>
 #include "quantum.h"
 #include "keymap_german.h"
+
+void cycle_right_encoder(void);
+void cycle_left_encoder(void);
 
 enum layers {
     _QWERTY = 0,
@@ -61,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐  ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    TD(TD_RGB),KC_NO,      MO(_CTRL), KC_NO,   KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, MT(MOD_RSFT, DE_SS),
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┴────────┴────────┼────────┼────────┼────────┴────────┴────────┘
-                                  KC_NO,   KC_LALT, LT(_LOWER,KC_TAB), KC_LGUI, KC_ESC, KC_NO, LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER, CYCLE_RIGHT_ENCODER
+                                  KC_MEDIA_PLAY_PAUSE,   KC_LALT, LT(_LOWER,KC_TAB), KC_LGUI, KC_ESC, KC_NO, LT(_MVMNT, KC_SPC), LT(_RAISE, KC_BSPC), KC_ENTER, CYCLE_RIGHT_ENCODER
     //                           └────────┴────────┴────────┴────────┴────────┘  └────────┴────────┴────────┴────────┴────────┘
     ),                                  
 
@@ -146,9 +148,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code(KC_MEDIA_NEXT_TRACK);
         } else {
-            tap_code(KC_VOLD);
+            tap_code(KC_MEDIA_PREV_TRACK);
         }
     }
     
