@@ -18,6 +18,24 @@
 #include "quantum.h"
 #include "keymap_german.h"
 
+/************** ENCODER DECLARATIONS **************************/
+
+enum right_encoder_states {
+    ARROW,
+    PAGE,
+    VOLUME
+};
+int right_encoder_state = ARROW;
+
+enum left_encoder_states {
+    SELECT
+};
+
+enum custom_keycodes {
+    CYCLE_RIGHT_ENCODER = 0,
+    CYCLE_LEFT_ENCODER
+};
+
 void cycle_right_encoder(void);
 void cycle_left_encoder(void);
 
@@ -29,21 +47,7 @@ enum layers {
     _CTRL,
 };
 
-enum right_encoder_states {
-    ARROW,
-    PAGE,
-    VOLUME
-};
-
-enum left_encoder_states {
-    SELECT
-};
-
-enum custom_keycodes {
-    CYCLE_RIGHT_ENCODER = 0,
-    CYCLE_LEFT_ENCODER
-};
-
+/************** KEYMAP DECLARATIONS **************************/
 enum tap_dances {
     TD_RGB = 0,
 };
@@ -51,6 +55,9 @@ enum tap_dances {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_RGB] = ACTION_TAP_DANCE_DOUBLE(RGB_TOG, RGB_MOD)
 };
+
+
+/************** KEYMAPS **************************/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //
@@ -126,6 +133,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+
+// ----------------------------- ENCODER STUFF --------------------------------------
+#ifdef ENCODER_ENABLE
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
@@ -138,10 +149,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// ----------------------------- ENCODER STUFF --------------------------------------
-#ifdef ENCODER_ENABLE
-
-int right_encoder_state = ARROW;
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     // Left encoder
@@ -195,6 +202,8 @@ void cycle_right_encoder(void) {
     }
 }
 #endif
+
+/************** OLED THINGS **************************/
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
