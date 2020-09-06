@@ -155,13 +155,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            if (get_mods() & MOD_MASK_SHIFT) {
+            if (get_mods() & MOD_MASK_CTRL) {
                 tap_code(KC_F13);
             } else {
                 tap_code(KC_F14);
             }
         } else {
-            if (get_mods() & MOD_MASK_SHIFT) {
+            if (get_mods() & MOD_MASK_CTRL) {
                 tap_code(KC_F15);
             } else {
                 tap_code(KC_F16);
