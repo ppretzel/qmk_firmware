@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "quantum.h"
+#include "keymap_german.h"
 
 extern keymap_config_t keymap_config;
 
@@ -12,6 +14,10 @@ extern keymap_config_t keymap_config;
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
 };
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_65_with_macro(
