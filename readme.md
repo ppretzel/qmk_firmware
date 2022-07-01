@@ -4,13 +4,15 @@ Here I store the keymaps for my mechanical keyboards. They are being written aga
 
 ## Build instructions
 
-As a keep forgetting how to compile and flash things, this is the synopsis:
+As I keep forgetting how to compile and flash things, this is the synopsis:
 1. update the system using `apt` or `pacman` etc. to get the newest libraries to compile against
 2. update the repository: `git fetch upstream`, then `git merge upstream/master` to merge into the current branch
-3. then `make <vendor>/<keyboard>/<revision>:<keymap>` to build, and append :<bootloader> to flash
+3. then `make <vendor>/<keyboard>/<revision>:<keymap>` to build, and append `:<bootloader>` to flash
 4. Specifically for Quefrency: `make keebio/quefrency/rev4:ppretzel:dfu` and enter bootloader mode from the reset button accessible via the small hole in the back
 
 Potentially when flashing a board for the first time, some additional steps need to be taken; above instructions are for updating the board with a new keymap
+
+-------- Below the original readme ----------
 
 # Quantum Mechanical Keyboard Firmware
 
