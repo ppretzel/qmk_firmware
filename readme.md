@@ -6,8 +6,10 @@ Here I store the keymaps for my mechanical keyboards. They are being written aga
 
 As I keep forgetting how to compile and flash things, this is the synopsis:
 1. update the system using `apt` or `pacman` etc. to get the newest libraries to compile against
-2. update the repository: `git fetch upstream`, then `git merge upstream/master` to merge into the current branch
-3. then `make <vendor>/<keyboard>/<revision>:<keymap>` to build, and append `:<bootloader>` to flash
+2. update the submodules: `git submodule update --init --recursive`
+3. update the repository: `git fetch upstream`, then `git merge upstream/master` to merge into the current branch
+4. In case of git merge issues, "both modified: lib/xyz" etc: `git checkout --theirs lib/xyz`, then `git add lib/xyz`
+5. then `make <vendor>/<keyboard>/<revision>:<keymap>` to build, and append `:<bootloader>` to flash
 
 - Specifically for Quefrency: `make keebio/quefrency/rev4:ppretzel:dfu` and enter bootloader mode from the reset button accessible via the small hole in the back
 - For Elite-C (uses *DFU* bootloader): `:dfu`
